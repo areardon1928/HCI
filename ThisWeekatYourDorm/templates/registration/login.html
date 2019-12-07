@@ -1,6 +1,36 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+<!DOCTYPE html>
+<html>
+    <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+	body {
+  		background: url('https://cdn.britannica.com/51/189951-050-81EDCED8/University-of-Notre-Dame-Indiana.jpg') no-repeat center center fixed;
+  		-webkit-background-size: cover;
+  		-moz-background-size: cover;
+  		background-size: cover;
+  		-o-background-size: cover;
+	}
+	.card {
+		background-color: rgba(0, 43, 92, .82);
+		
+	}
+    </style>
+    </head>
+    <body>
+	<div class="container">
+	    <div class="row justify-content-center">
+		<div class="card my-auto">
+		    <div class = "card-body"> 
+			    <h2 class = "justify-content-center" style="color: #b18d03;">ThisWeek@YourDorm</h2>
+			<form method="post">
+			    {% csrf_token %}
+			    {{ form.as_p }}
+			    <button type="submit">Login</button>
+			</form>
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </body>
+</html>
