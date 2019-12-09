@@ -1,0 +1,9 @@
+
+{% extends "homepage/base.html" %}
+{% block extrahead %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'cal/css/styles.css' %}">
+{% endblock %}
+{% block content %}
+{{ calendar }}
+{% endblock %}
