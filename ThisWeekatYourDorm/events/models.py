@@ -29,7 +29,10 @@ class Event(models.Model):
  
         def get_absolute_url(self):
             url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
-            return u'<a href="%s">%s</a>' % (url, str(self.title))
+            color = "green"
+            if (self.category=="Dicks"):
+                color = "black"
+            return u'<a href="%s" style="color: %s;">%s</a>' % (url, color, str(self.title))
  
         def clean(self):
             if self.end_time <= self.start_time:
