@@ -27,11 +27,26 @@ class CalendarView(generic.ListView):
         cal = EventCalendar()
 
         check = self.kwargs.get('cat', None)
-        
+        weeknum = int(self.kwargs.get('week', 0))
         cat = check
         # Call the formatmonth method, which returns our calendar as a table
-        html_cal = cal.formatmonth(d.year, d.month, cat=cat, withyear=True)
+        html_cal = cal.formatmonth(d.year, d.month, cat=cat, weeknum=weeknum, withyear=True)
         context['calendar'] = mark_safe(html_cal)
+        if (check != None):
+            context['filt'] = check
+        context['weeknumber'] = mark_safe(weeknum)
+        context['nextweek'] = mark_safe(self.get_next_week(weeknum))
+        context['prevweek'] = mark_safe(self.get_prev_week(weeknum))
         return context
 
+    def get_next_week(self, curweek):
+        if (curweek < 5):
+            return curweek+1
+        else:
+            return curweek
 
+    def get_prev_week(self, curweek):
+        if (curweek > 0):
+            return curweek-1
+        else:
+            return curweek

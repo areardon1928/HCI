@@ -1,39 +1,106 @@
 
-{% extends "homepage/base.html" %}
+{% extends "homepage/base2.html" %}
 {% block extrahead %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'cal/css/styles.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 {% endblock %}
 {% block content %}
 <div class = "container">
 <div class = "row">  
-   <div class = "col">
+   <div class = "col float-left" >
    <div class = "fieldset">
-    <legend>FILTERS</legend>
-    <div class="form-group">
+	   <legend>FILTERS</legend>
+    <div class="form-group" style="border: 1px solid darkgray; padding: 5px; border-radius:3px">
       <div class="custom-control custom-radio">
-        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
-        <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+	      {% if filt != 'Sports' %}
+	      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" onclick="window.location='/calendar/{{ weeknumber }}/Sports';"/>
+	      {% else %}
+	      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="" onclick="window.location='/calendar/{{ weeknumber }}/None';"/>
+	      {% endif %}
+        <label class="custom-control-label" style="color: darkcyan" for="customRadio1">Sports</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-        <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+	      {% if filt != 'Academic' %}
+	      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" onclick="window.location='/calendar/{{ weeknumber }}/Academic';"/>
+	      {% else %}
+	      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" checked="" onclick="window.location='/calendar/{{ weeknumber }}/None';"/>
+	      {% endif %}
+        <label class="custom-control-label" style="color: forestgreen" for="customRadio2">Academic</label>
       </div>
       <div class="custom-control custom-radio">
-        <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" disabled="">
-        <label class="custom-control-label" for="customRadio3">Disabled custom radio</label>
+	      {% if filt != 'Music' %}
+	      <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" onclick="window.location='/calendar/{{ weeknumber }}/Music';"/>
+	      {% else %}
+	      <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" checked="" onclick="window.location='/calendar/{{ weeknumber }}/None';"/>
+	      {% endif %}
+        <label class="custom-control-label" style="color: orangered" for="customRadio3">Music</label>
+      </div>
+
+      <div class="custom-control custom-radio">
+	      {% if filt != 'Entertainment' %}
+	      <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input" onclick="window.location='/calendar/{{ weeknumber }}/Entertainment';"/>
+	      {% else %}
+	      <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input" checked="" onclick="window.location='/calendar/{{ weeknumber }}/None';"/>
+	      {% endif %}
+        <label class="custom-control-label" style="color: purple" for="customRadio4">Entertainment</label>
+      </div>
+
+      <div class="custom-control custom-radio">
+	      {% if filt != 'Community' %}
+	      <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input" onclick="window.location='/calendar/{{ weeknumber }}/Community';"/>
+	      {% else %}
+	      <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input" checked="" onclick="window.location='/calendar/{{ weeknumber }}/None';"/>
+	      {% endif %}
+        <label class="custom-control-label" style="color: goldenrod" for="customRadio5">Community</label>
       </div>
     </div>
    </div>
    </div>
-  <div class="col-8">
+  <div class="col-9"> 
+  	  {% if filt == None %}	
+	  <button type="button" class="btn float-left" style="color: #b18d03; font-size: 18px;" onclick="window.location='/calendar/{{ prevweek }}/None';"><i class="fa fa-fw fa-arrow-left"></i>Prev</button>
+	  <button type="button" class="btn float-right" style= "color: #b18d03; font-size: 18px;" onclick="window.location='/calendar/{{ nextweek}}/None';">Next<i class="fa fa-fw fa-arrow-right"></i></button>
+	  {% else %}
+	  <button type="button" class="btn float-left" style="color: #b18d03; font-size: 18px;" onclick="window.location='/calendar/{{ prevweek }}/{{ filt }}';"><i class="fa fa-fw fa-arrow-left"></i>Prev</button>
+	  <button type="button" class="btn float-right" style="color: #b18d03; font-size: 18px;" onclick="window.location='/calendar/{{ nextweek }}/{{ filt }}';">Next<i class="fa fa-fw fa-arrow-right"></i></button>
+	  {% endif %}
     <div class="calendar">
     {{ calendar }}
     </div>
-  </div>
+   </div>
   <div class="col">
+<!-- Button to Open the Modal -->
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
   </div>
-</div>
+  
+  </div>
+  </div>
 </div>
 
 

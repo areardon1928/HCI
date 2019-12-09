@@ -27,12 +27,20 @@ class Event(models.Model):
  
             return overlap
  
-        def get_absolute_url(self):
+        def get_absolute_url(self, weeknum):
             url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
-            color = "green"
-            if (self.category=="Dicks"):
-                color = "black"
-            return u'<a href="%s" style="color: %s;">%s</a>' % (url, color, str(self.title))
+            color = "black"
+            if (self.category=="Sports"):
+                color = "darkcyan"
+            elif (self.category=="Academic"):
+                color = "forestgreen"
+            elif (self.category=="Music"):
+                color = "orangered"
+            elif (self.category=="Entertainment"):
+                color = "purple"
+            elif (self.category=="Community"):
+                color = "goldenrod"
+            return u'<a href="%s" style="color: %s;">%s</a>' % (str(self.title), color, str(self.title))
  
         def clean(self):
             if self.end_time <= self.start_time:
