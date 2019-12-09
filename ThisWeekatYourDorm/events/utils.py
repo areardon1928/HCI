@@ -31,13 +31,16 @@ class EventCalendar(HTMLCalendar):
         s = ''.join(self.formatday(d, wd, events) for (d, wd) in theweek)
         return '<tr>%s</tr>' % s
  
-    def formatmonth(self, theyear, themonth, withyear=True):
+    def formatmonth(self, theyear, themonth, cat=None, withyear=True):
         """
         Return a formatted month as a table.
         """
- 
-        events = Event.objects.filter(day__month=themonth)
- 
+        
+        if (cat==None):
+             events = Event.objects.filter(day__month=themonth)
+        else:
+             events = Event.objects.filter(day__month=themonth, category=cat)
+        
         v = []
         a = v.append
         a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
@@ -46,9 +49,9 @@ class EventCalendar(HTMLCalendar):
         a('\n')
         a(self.formatweekheader())
         a('\n')
-        for week in self.monthdays2calendar(theyear, themonth):
-            a(self.formatweek(week, events))
-            a('\n')
+        week = self.monthdays2calendar(theyear, themonth)[2]
+        a(self.formatweek(week, events))
+        a('\n')
         a('</table>')
         a('\n')
         return ''.join(v)

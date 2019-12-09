@@ -13,7 +13,6 @@ class CalendarView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         after_day = self.request.GET.get('day__gte', None)
 
         if not after_day:
@@ -27,7 +26,12 @@ class CalendarView(generic.ListView):
 
         cal = EventCalendar()
 
+        check = self.kwargs.get('cat', None)
+        
+        cat = check
         # Call the formatmonth method, which returns our calendar as a table
-        html_cal = cal.formatmonth(d.year, d.month, withyear=True)
+        html_cal = cal.formatmonth(d.year, d.month, cat=cat, withyear=True)
         context['calendar'] = mark_safe(html_cal)
         return context
+
+
