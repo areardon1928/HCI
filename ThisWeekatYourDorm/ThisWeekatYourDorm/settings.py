@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'schedule',
+    'djangobower',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ThisWeekatYourDorm.wsgi.application'
 
+TEMPLATE_CONTEXT_PROCESSORS = [
+        "django.template.context_processors.request",
+        ]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -118,9 +123,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
+        ]
+STATICFILES_FINDER = [
+        'djangobower.finders.BowerFinder',
         ]
 # Login Redirect
 LOGIN_REDIRECT_URL = '/homepage/'
 
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, "components")
+
+BOWER_INSTALLED_APPS= (
+        'jquery',
+        'jquery-ui',
+        'bootstrap',
+    )
