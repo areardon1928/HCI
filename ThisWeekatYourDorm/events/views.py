@@ -5,6 +5,8 @@ from django.views import generic
 from django.utils.safestring import mark_safe
 from .models import *
 from .utils import EventCalendar
+from .forms import PartialAuthorForm
+from django.views.generic.edit import UpdateView
 
 # Create your views here.
 class CalendarView(generic.ListView):
@@ -29,6 +31,7 @@ class CalendarView(generic.ListView):
         check = self.kwargs.get('cat', None)
         weeknum = int(self.kwargs.get('week', 0))
         cat = check
+        eve = self.kwargs.get('eve', None)
         # Call the formatmonth method, which returns our calendar as a table
         html_cal = cal.formatmonth(d.year, d.month, cat=cat, weeknum=weeknum, withyear=True)
         context['calendar'] = mark_safe(html_cal)
@@ -37,6 +40,7 @@ class CalendarView(generic.ListView):
         context['weeknumber'] = mark_safe(weeknum)
         context['nextweek'] = mark_safe(self.get_next_week(weeknum))
         context['prevweek'] = mark_safe(self.get_prev_week(weeknum))
+        context['eve'] = eve
         return context
 
     def get_next_week(self, curweek):
@@ -50,3 +54,10 @@ class CalendarView(generic.ListView):
             return curweek-1
         else:
             return curweek
+    
+class AddAttendee(UpdateView):
+    model = Event
+    fields = ['author']
+
+    
+

@@ -59,7 +59,7 @@
     </div>
    </div>
    </div>
-  <div class="col-9"> 
+  <div class="col-8"> 
   	  {% if filt == None %}	
 	  <button type="button" class="btn float-left" style="color: #b18d03; font-size: 18px;" onclick="window.location='/calendar/{{ prevweek }}/None';"><i class="fa fa-fw fa-arrow-left"></i>Prev</button>
 	  <button type="button" class="btn float-right" style= "color: #b18d03; font-size: 18px;" onclick="window.location='/calendar/{{ nextweek}}/None';">Next<i class="fa fa-fw fa-arrow-right"></i></button>
@@ -71,9 +71,26 @@
     {{ calendar }}
     </div>
    </div>
-  <div class="col">
+  <div class="col text-center" style="border: 1px solid darkgray; border-radius: 3px;">
 <!-- Button to Open the Modal -->
-
+{% if eve %}
+	<script type="text/javascript">
+		    $(window).on('load',function(){
+			            $('#myModal').modal('show');
+			        });
+	</script>
+    {% for e in object_list %}
+    {% if e.title == eve %}
+    <p class="text-center"> ATTENDEES </p>
+    <p class="text-center" style="font-size: 12px">Event: {{ e.title }}</p> 
+    <p class="text-center" style="font-size: 14px">{{ e.author }}</p>
+    <p class="text-center" style="font-size: 14px" id="att"></p>
+    <button class="btn text-center" style="background-color: #b18d03; color: white" onclick="pureCheese()">Attend</button>
+	<script>
+		function pureCheese() {
+			document.getElementById("att").innerHTML = "mdadamio";
+		}
+	</script>
   <!-- The Modal -->
   <div class="modal" id="myModal">
     <div class="modal-dialog">
@@ -81,24 +98,28 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
+		<h4 class="modal-title">{{ e.title }}</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-          
+	<p>From {{ e.start_time }} to {{ e.end_time }}</p>
+	<p>Location: {{ e.location }}</p>
+	<p>Created By: {{ e.author }}</p>
+		{{ e.notes }} 
         </div>
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+       
         
       </div>
     </div>
   </div>
   
+    {% endif %}
+    {% endfor %}
+{% endif %}
   </div>
   </div>
 </div>

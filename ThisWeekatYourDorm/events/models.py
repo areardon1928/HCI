@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Event(models.Model):
@@ -11,6 +12,8 @@ class Event(models.Model):
         end_time = models.TimeField(u'Final time', help_text=u'Final time')
         notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
         category = models.CharField(u'Event Category', max_length=50)
+        author = models.CharField(u'Author', max_length=50)
+        location = models.CharField(u'Event Location', max_length=50)
 
         class Meta:
             verbose_name = u'Scheduling'
@@ -40,7 +43,7 @@ class Event(models.Model):
                 color = "purple"
             elif (self.category=="Community"):
                 color = "goldenrod"
-            return u'<a href="%s" style="color: %s;">%s</a>' % (str(self.title), color, str(self.title))
+            return u'<a href="/calendar/%s/None/%s" style="color: %s;">%s</a>' % (str(weeknum),str(self.title), color, str(self.title))
  
         def clean(self):
             if self.end_time <= self.start_time:

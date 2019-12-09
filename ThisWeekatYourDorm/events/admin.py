@@ -9,6 +9,8 @@ from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 from .utils import EventCalendar
 
+class MyAdminSite(admin.AdminSite):
+    site_url="http://127.0.0.1:8000/calendar/0/None"
 class EventAdmin(admin.ModelAdmin):
     list_display = ['day', 'start_time', 'end_time', 'notes']
 

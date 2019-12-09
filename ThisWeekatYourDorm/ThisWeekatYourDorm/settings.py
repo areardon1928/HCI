@@ -132,7 +132,7 @@ STATICFILES_FINDER = [
         'djangobower.finders.BowerFinder',
         ]
 # Login Redirect
-LOGIN_REDIRECT_URL = '/homepage/'
+LOGIN_REDIRECT_URL = '/calendar/2/None'
 
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, "components")
 
